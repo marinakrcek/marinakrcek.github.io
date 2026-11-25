@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marina Krček</title>
+<meta name="description" content="Marina Krček — machine learning researcher working on the security, robustness and interpretability of deep learning models.">
+<style>
+  :root {
+    --text: #1c1c1e;
+    --muted: #6b6f76;
+    --faint: #9aa0a6;
+    --accent: #2a5db0;
+    --rule: #e6e6e6;
+    --chip: #f2f4f7;
+    --bg: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --text: #ececec; --muted: #a3a7ad; --faint: #7d8288; --accent: #8ab4f8; --rule: #2e2e2e; --chip: #232427; --bg: #151515; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; line-height: 1.65;
+  }
+  .skip { position: absolute; left: -999px; }
+  .skip:focus { left: 16px; top: 16px; background: var(--bg); padding: 6px 10px; }
+  main { max-width: 720px; margin: 0 auto; padding: 64px 24px 48px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Header */
+  .brand { display: flex; align-items: center; gap: 22px; }
+  .avatar { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .brand h1 { font-size: 1.9rem; font-weight: 650; margin: 0; letter-spacing: -0.015em; line-height: 1.2; }
+  .meta { margin: 8px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.5; display: flex; flex-direction: column; gap: 4px; }
+  .mi { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .mi svg { width: 16px; height: 16px; flex-shrink: 0; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .topics { gap: 4px 16px; }
+  .topics span { display: inline-flex; align-items: center; gap: 6px; }
+  .linkrow { margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.93rem; font-weight: 500; }
+
+  /* Sections */
+  h2 { font-size: 1.25rem; font-weight: 650; margin: 52px 0 14px; letter-spacing: -0.01em; }
+  h3 { font-size: 1.02rem; font-weight: 600; margin: 26px 0 6px; }
+  p { margin: 0 0 14px; }
+  .interests { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+  .interests li { background: var(--chip); border-radius: 999px; padding: 3px 12px; font-size: 0.86rem; }
+  .muted { color: var(--muted); }
+
+  /* Profile highlight */
+  .profile { margin: 40px 0 0; padding: 22px 26px; background: var(--chip); border-left: 4px solid var(--accent); border-radius: 6px; }
+  .profile p { margin: 0 0 10px; }
+  .profile .lead { font-size: 1.3rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.01em; }
+  .profile .open { margin: 0; font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+
+  /* Publications */
+  .pub { padding: 16px 0; border-top: 1px solid var(--rule); }
+  .pub:last-child { border-bottom: 1px solid var(--rule); }
+  .venue { font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); }
+  .award { color: #b8741a; }
+  .ptitle { font-weight: 600; margin: 2px 0 2px; line-height: 1.4; }
+  .authors { color: var(--muted); font-size: 0.92rem; }
+  .authors b { color: var(--text); font-weight: 600; }
+  .plinks { margin-top: 4px; font-size: 0.88rem; display: flex; gap: 16px; }
+
+  /* Timeline */
+  .tl { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--rule); }
+  .tl li { position: relative; padding: 0 0 24px 22px; }
+  .tl li::before { content: ""; position: absolute; left: -7px; top: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .tl .when { font-size: 0.85rem; color: var(--muted); }
+  .tag { display: inline-block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 1px 8px; border-radius: 4px; margin-left: 8px; background: var(--chip); color: var(--muted); }
+  .tl .org { font-weight: 600; margin-top: 2px; }
+  .tl .detail { font-size: 0.93rem; color: var(--muted); }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; margin: 30px 0 0; border-bottom: 1px solid var(--rule); }
+  .tabs a { padding: 8px 14px; font-size: 0.93rem; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tabs a:hover { text-decoration: none; color: var(--text); }
+  .tabs a.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .panel[hidden] { display: none; }
+
+  /* Email */
+  .email { display: inline-flex; align-items: center; gap: 8px; }
+  .email code { font-family: inherit; color: var(--text); font-weight: 500; user-select: all; }
+  .copy { font: inherit; font-size: 0.78rem; padding: 1px 9px; border: 1px solid var(--rule); border-radius: 4px; background: var(--chip); color: var(--muted); cursor: pointer; }
+  .copy:hover { color: var(--text); }
+
+  /* Service lists */
+  h3.sv { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin: 28px 0 6px; }
+  ul.rows { list-style: none; margin: 0; padding: 0; }
+  ul.rows li { display: flex; justify-content: space-between; gap: 16px; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  ul.rows li:first-child { border-top: 1px solid var(--rule); }
+  ul.rows .yrs { color: var(--muted); font-size: 0.92rem; white-space: nowrap; }
+  ul.rows .sub { display: block; color: var(--muted); font-size: 0.88rem; }
+
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--faint); font-size: 0.82rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 560px) {
+    main { padding-top: 40px; }
+    .brand { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .avatar { width: 96px; height: 96px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content">Skip to content</a>
+<main>
+
+<header class="brand">
+<!--  <img class="avatar" src="photo.jpg" alt="Portrait of Marina Krček">-->
+  <div>
+    <h1>Marina Krček</h1>
+    <div class="meta">
+      <div class="mi">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg>
+        Machine Learning Researcher
+      </div>
+      <div class="mi topics">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><rect x="9" y="11" width="6" height="5" rx="1"/><path d="M10 11V9.5a2 2 0 0 1 4 0V11"/></svg>AI security</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M8.5 11h5M11 8.5v5"/></svg>Interpretability</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Robustness</span>
+      </div>
+      <div class="mi">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        Netherlands
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="linkrow" aria-label="Profiles">
+  <a href="https://scholar.google.com/citations?user=4zt0cJ4AAAAJ">Google Scholar ↗</a>
+  <a href="https://github.com/marinakrcek">GitHub ↗</a>
+  <a href="https://www.linkedin.com/in/marinakrcek">LinkedIn ↗</a>
+  <span class="email"><a href="mailto:marina.krcek7@gmail.com">marina.krcek7@gmail.com</a><button class="copy" type="button" data-copy="marina.krcek7@gmail.com">Copy</button></span>
+<!--  <a href="cv.pdf" download>Download CV ↓</a>-->
+</nav>
+
+<nav class="tabs" aria-label="Sections">
+  <a href="#home" data-tab="home">Research</a>
+  <a href="#service" data-tab="service">Academic</a>
+</nav>
+
+<div id="main-content">
+
+<div class="panel" id="panel-home">
+
+<section class="profile">
+  <p class="lead">I study how deep learning models fail, and how to make them secure, robust and understandable.</p>
+  <p>Machine learning researcher with a PhD from TU Delft and a postdoc in AI security at Radboud University. My work spans backdoors, jailbreak defense in LLMs and mechanistic interpretability.</p>
+</section>
+
+<p class="muted" style="margin:24px 0 4px">Research interests</p>
+<ul class="interests">
+  <li>AI security</li>
+  <li>Backdoors &amp; data poisoning</li>
+  <li>Mechanistic interpretability</li>
+  <li>Activation steering</li>
+  <li>Mixture-of-Experts LLMs</li>
+  <li>Robust vision models</li>
+</ul>
+
+<h2>Selected publications</h2>
+<p class="muted">See all publications on <a href="https://scholar.google.com/citations?user=4zt0cJ4AAAAJ">Google Scholar ↗</a></p>
+
+<div class="pubs">
+  <div class="pub">
+    <div class="venue">arXiv 2026</div>
+    <div class="ptitle">MASCing: Configurable Mixture-of-Experts Behavior via Activation Steering Masks</div>
+    <div class="authors">J. te Lintelo, L. Wu, <b>M. Krček</b>, S. Karayalçin, S. Picek</div>
+    <div class="plinks"><a href="https://arxiv.org/abs/2604.27818">Paper ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">NeurIPS 2025</div>
+    <div class="ptitle">Interpreting Emergent Features in Deep Learning-based Side-channel Analysis</div>
+    <div class="authors">S. Karayalçin, <b>M. Krček</b>, S. Picek</div>
+    <div class="plinks"><a href="https://arxiv.org/abs/2502.00384">Paper ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">arXiv 2025</div>
+    <div class="ptitle">SoK: The Last Line of Defense: On Backdoor Defense Evaluation</div>
+    <div class="authors">G. Abad, <b>M. Krček</b>, S. Koffas, B. Tajalli, M. Arazzi, R. Riaño, X. Xu, Z. Liu, A. Nocera, S. Picek</div>
+    <div class="plinks"><a href="https://arxiv.org/abs/2511.13143">Paper ↗</a><a href="https://zenodo.org/records/23449120">Code &amp; results ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">ICLR 2026 Workshop · Principled Design for Trustworthy AI</div>
+    <div class="ptitle">Backdoor Attacks on Decentralised Post-Training</div>
+    <div class="authors">O. Ersoy, N. Blagoev, J. te Lintelo, S. Koffas, <b>M. Krček</b>, S. Picek</div>
+    <div class="plinks"><a href="https://arxiv.org/abs/2604.02372">Paper ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">arXiv 2026</div>
+    <div class="ptitle">Backdoor Directions in Vision Transformers</div>
+    <div class="authors">S. Karayalçin, <b>M. Krček</b>, P.-Y. Chen, S. Picek</div>
+    <div class="plinks"><a href="https://arxiv.org/abs/2603.10806">Paper ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">DATE 2025</div>
+    <div class="ptitle">Late Breaking Results: Practical Electromagnetic Fault Injection on Intel Neural Compute Stick 2</div>
+    <div class="authors">S. Bhasin, D. Jap, P. Ravi, <b>M. Krček</b>, S. Picek</div>
+    <div class="plinks"><a href="https://ieeexplore.ieee.org/abstract/document/10993242">Paper ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">ASIACRYPT 2024</div>
+    <div class="ptitle">It's a Kind of Magic: A Novel Conditional GAN Framework for Efficient Profiling Side-Channel Analysis</div>
+    <div class="authors">S. Karayalçin, <b>M. Krček</b>, L. Wu, S. Picek, G. Perin</div>
+    <div class="plinks"><a href="https://link.springer.com/chapter/10.1007/978-981-96-0944-4_4">Paper ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">AIHWS 2024 · <span class="award">Best Workshop Paper</span></div>
+    <div class="ptitle">Diversity Algorithms for Laser Fault Injection</div>
+    <div class="authors"><b>M. Krček</b>, T. Ordas</div>
+    <div class="plinks"><a href="https://dl.acm.org/doi/10.1007/978-3-031-61486-6_8">Paper ↗</a></div>
+  </div>
+  <div class="pub">
+    <div class="venue">Journal of Cryptographic Engineering 2024</div>
+    <div class="ptitle">Autoencoder-enabled Model Portability for Reducing Hyperparameter Tuning Efforts in Side-channel Analysis</div>
+    <div class="authors"><b>M. Krček</b>, G. Perin</div>
+    <div class="plinks"><a href="https://doi.org/10.1007/s13389-023-00330-4">Paper ↗</a></div>
+  </div>
+</div>
+
+</div>
+
+<div class="panel" id="panel-service" hidden>
+
+<h2>Research visits</h2>
+<ul class="rows">
+  <li><span>Nanyang Technological University (NTU), Singapore<span class="sub">Hosted by Shivam Bhasin · Electromagnetic fault injection on edge AI devices</span></span><span class="yrs">Nov 2022</span></li>
+</ul>
+
+<h2>Seminars and schools</h2>
+<ul class="rows">
+  <li><span>Dagstuhl Seminar 26401: Divided We Stand: Security and Privacy of Collaborative Learning<span class="sub">Schloss Dagstuhl, Wadern, Germany</span></span><span class="yrs">2026</span></li>
+  <li><span>Dagstuhl Seminar 22412: Intelligent Security: Is "AI for Cybersecurity" a Blessing or a Curse<span class="sub">Schloss Dagstuhl, Wadern, Germany</span></span><span class="yrs">2022</span></li>
+  <li><span>AI+Sec: Artificial Intelligence and Security<span class="sub">Lorentz Center, Leiden, Netherlands</span></span><span class="yrs">2019</span></li>
+  <li><span>Summer School on Real-World Crypto and Privacy<span class="sub">Šibenik, Croatia</span></span><span class="yrs">2019, 2022</span></li>
+</ul>
+
+<h2>Academic service</h2>
+
+<h3 class="sv">Program committee</h3>
+<ul class="rows">
+  <li><span>IEEE Conference on Secure and Trustworthy Machine Learning (SaTML)</span><span class="yrs">2026, 2027</span></li>
+  <li><span>Workshop on Artificial Intelligence in Hardware Security (AIHWS)</span><span class="yrs">2026</span></li>
+  <li><span>CFAIL Workshop</span><span class="yrs">2025</span></li>
+</ul>
+
+<h3 class="sv">Conference reviewer</h3>
+<ul class="rows">
+  <li><span>Neural Information Processing Systems (NeurIPS)</span><span class="yrs">2026</span></li>
+  <li><span>International Conference on Learning Representations (ICLR)</span><span class="yrs">2026, 2027</span></li>
+</ul>
+
+<h3 class="sv">Journal reviewer</h3>
+<ul class="rows">
+  <li><span>IEEE Transactions on Information Forensics and Security (TIFS)</span><span class="yrs">2023 – present</span></li>
+  <li><span>IEEE Transactions on Emerging Topics in Computing (TETC)</span><span class="yrs">2023 – present</span></li>
+  <li><span>IEEE Security &amp; Privacy</span><span class="yrs">2023 – present</span></li>
+  <li><span>IEEE Journal on Emerging and Selected Topics in Circuits and Systems (JETCAS)</span><span class="yrs">2023 – present</span></li>
+</ul>
+
+<h3 class="sv">Web chair</h3>
+<ul class="rows">
+  <li><span>AIHWS Workshop</span><span class="yrs">2020 – 2026</span></li>
+  <li><span>AICrypt Workshop</span><span class="yrs">2022 – 2025</span></li>
+  <li><span>ACAI Workshop</span><span class="yrs">2023</span></li>
+  <li><span>IEEE Computer Security Foundations Symposium (CSF)</span><span class="yrs">2024</span></li>
+</ul>
+
+
+
+<h2>Teaching and supervision</h2>
+<ul class="rows">
+  <li><span>Co-supervisor of a PhD student, Leiden University<span class="sub">Side-channel analysis, AI security, mechanistic interpretability</span></span><span class="yrs">2025 – 2026</span></li>
+  <li><span>Teaching assistant, <em>Security and Privacy of Machine Learning</em><span class="sub">Radboud University</span></span><span class="yrs">2024 – 2026</span></li>
+  <li><span>Teaching assistant, <em>System Security</em> and <em>Algebra and Cryptography</em><span class="sub">TU Delft</span></span><span class="yrs">2021 – 2022</span></li>
+  <li><span>Supervised MSc and BSc students<span class="sub">TU Delft · deep learning for side-channel analysis</span></span><span class="yrs">2020 – 2021</span></li>
+</ul>
+
+</div>
+
+</div>
+
+<footer>
+  <span>© 2026 Marina Krček</span>
+  <span>Last updated November 2026</span>
+</footer>
+
+</main>
+<script>
+  (function () {
+    var tabs = document.querySelectorAll('.tabs a');
+    function show(name) {
+      if (name !== 'service') name = 'home';
+      document.getElementById('panel-home').hidden = name !== 'home';
+      document.getElementById('panel-service').hidden = name !== 'service';
+      tabs.forEach(function (t) { t.classList.toggle('active', t.dataset.tab === name); });
+    }
+    window.addEventListener('hashchange', function () { show(location.hash.slice(1)); });
+    show(location.hash.slice(1));
+
+    document.querySelectorAll('.copy').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var text = b.dataset.copy;
+        var done = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); };
+        if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done, function () {}); }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
